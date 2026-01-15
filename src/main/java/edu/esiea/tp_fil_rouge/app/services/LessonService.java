@@ -26,7 +26,7 @@ public class LessonService implements ILessonService {
     private LessonMapper lessonMapper;
 
     @Override
-    public LessonDto addLessonToTheme(LessonDto lessonDto) {
+    public LessonDto addLessonToTheme(int id ,LessonDto lessonDto) {
 
         if (lessonDto.title() == null || lessonDto.title().trim().isEmpty()){
             throw new IllegalArgumentException("Title cannot be empty");

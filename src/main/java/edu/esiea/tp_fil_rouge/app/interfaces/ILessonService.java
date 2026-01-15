@@ -11,7 +11,7 @@ public interface ILessonService {
      * @param lessonDto LessonDto à genere
      * @return LessonDto cree
      */
-    LessonDto addLessonToTheme(LessonDto lessonDto);
+    LessonDto addLessonToTheme(int id,LessonDto lessonDto);
 
     /**
      * Récupère les lecons et leurs themes
