@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface LessonMapper {
     LessonDto toDto(Lesson lesson);
-    Lesson toEntity(Lesson dto);
+    Lesson toEntity(LessonDto dto);
 }
