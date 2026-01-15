@@ -1,11 +1,9 @@
 package edu.esiea.tp_fil_rouge.domain.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "lesson")
 public class Lesson {
 
     @Id
@@ -14,6 +12,8 @@ public class Lesson {
     private String title;
 
 
+    @ManyToOne
+    @JoinColumn(name = "theme_id")
     private Theme theme;
 
     public Lesson(){}

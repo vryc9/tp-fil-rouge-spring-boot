@@ -1,17 +1,20 @@
 package edu.esiea.tp_fil_rouge.domain.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name = "theme")
 public class Theme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private float coef;
+
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
 
 
     private String name;
