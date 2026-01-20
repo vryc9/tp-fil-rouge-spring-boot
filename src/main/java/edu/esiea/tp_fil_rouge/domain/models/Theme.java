@@ -13,12 +13,8 @@ public class Theme {
     private Long id;
     private float coef;
 
-    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
-
-
+    @Column(unique = true, nullable = false)
     private String name;
-
 
     public Theme() {
     }
