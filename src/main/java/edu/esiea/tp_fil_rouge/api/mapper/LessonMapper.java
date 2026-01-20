@@ -1,5 +1,6 @@
 package edu.esiea.tp_fil_rouge.api.mapper;
 import edu.esiea.tp_fil_rouge.api.dtos.LessonDto;
+import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
 import edu.esiea.tp_fil_rouge.domain.models.Lesson;
 import org.mapstruct.Mapper;
 
@@ -7,4 +8,5 @@ import org.mapstruct.Mapper;
 public interface LessonMapper {
     LessonDto toDto(Lesson lesson);
     Lesson toEntity(LessonDto dto);
+    LessonWithThemeDto toDtoWithTheme(Lesson lesson);
 }

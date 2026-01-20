@@ -1,6 +1,7 @@
 package edu.esiea.tp_fil_rouge.app.services;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LessonDto;
+import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
 import edu.esiea.tp_fil_rouge.api.mapper.LessonMapper;
 import edu.esiea.tp_fil_rouge.app.interfaces.ILessonService;
 import edu.esiea.tp_fil_rouge.domain.models.Lesson;
@@ -26,21 +27,21 @@ public class LessonService implements ILessonService {
     private LessonMapper lessonMapper;
 
     @Override
-    public LessonDto addLessonToTheme(int id ,LessonDto lessonDto) {
+    public LessonWithThemeDto addLessonToTheme(int idTheme , LessonDto lessonDto) {
 
         if (lessonDto.title() == null || lessonDto.title().trim().isEmpty()){
             throw new IllegalArgumentException("Title cannot be empty");
         }
-        if (lessonDto.theme().getId() == null) {
+        if (idTheme <= 0) {
             throw new IllegalArgumentException("Theme id cannot be empty");
         }
 
-        themeRepository.findById(lessonDto.theme().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Thème introuvable avec l'id : " + lessonDto.theme().getId()));
+        themeRepository.findById((long) idTheme)
+                .orElseThrow(() -> new IllegalArgumentException("Thème introuvable avec l'id : " + idTheme));
 
         Lesson lesson = lessonMapper.toEntity(lessonDto);
         lesson = lessonRepository.save(lesson);
-        return lessonMapper.toDto(lesson);
+        return lessonMapper.toDtoWithTheme(lesson);
     }
 
     @Override
@@ -48,6 +49,4 @@ public class LessonService implements ILessonService {
         return lessonRepository.findAll(pageable)
                 .map(lessonMapper::toDto);
     }
-
-
 }

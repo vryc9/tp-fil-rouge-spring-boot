@@ -1,6 +1,7 @@
 package edu.esiea.tp_fil_rouge.app.interfaces;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LessonDto;
+import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,7 +12,7 @@ public interface ILessonService {
      * @param lessonDto LessonDto à genere
      * @return LessonDto cree
      */
-    LessonDto addLessonToTheme(int id,LessonDto lessonDto);
+    LessonWithThemeDto addLessonToTheme(int idTheme, LessonDto lessonDto);
 
     /**
      * Récupère les lecons et leurs themes
