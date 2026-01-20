@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IThemeRepository extends JpaRepository<Theme, Long> {
+    boolean existsByName(String name);
 }
