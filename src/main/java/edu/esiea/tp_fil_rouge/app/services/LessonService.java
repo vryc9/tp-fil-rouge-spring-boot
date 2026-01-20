@@ -32,6 +32,9 @@ public class LessonService implements ILessonService {
         if (lessonDto.title() == null || lessonDto.title().trim().isEmpty()){
             throw new IllegalArgumentException("Title cannot be empty");
         }
+        if (lessonRepository.existsByTitle(lessonDto.title())) {
+            throw new RuntimeException("Une leçon avec ce titre existe déjà.");
+        }
         if (idTheme <= 0) {
             throw new IllegalArgumentException("Theme id cannot be empty");
         }

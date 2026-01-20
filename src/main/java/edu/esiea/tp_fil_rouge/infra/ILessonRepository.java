@@ -14,4 +14,6 @@ public interface ILessonRepository extends JpaRepository<Lesson, Long> {
     @EntityGraph(attributePaths = "theme")
     @NonNull
     Page<Lesson> findAll(@NonNull Pageable pageable);
+
+    boolean existsByTitle(String title);
 }
