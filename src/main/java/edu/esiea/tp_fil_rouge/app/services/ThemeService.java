@@ -1,5 +1,6 @@
 package edu.esiea.tp_fil_rouge.app.services;
 
+import edu.esiea.tp_fil_rouge.app.interfaces.IThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +11,11 @@ import edu.esiea.tp_fil_rouge.api.dtos.ThemeDto;
 import edu.esiea.tp_fil_rouge.domain.models.Theme;
 import edu.esiea.tp_fil_rouge.infra.IThemeRepository;
 
+import java.util.List;
+
 
 @Service
-public class ThemeService {
+public class ThemeService implements IThemeService {
 
     @Autowired
     private IThemeRepository themeRepository;
