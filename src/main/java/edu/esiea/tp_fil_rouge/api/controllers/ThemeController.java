@@ -1,5 +1,6 @@
 package edu.esiea.tp_fil_rouge.api.controllers;
 
+import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
 import org.springframework.web.bind.annotation.*;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LessonDto;
@@ -36,10 +37,10 @@ public class ThemeController {
      * Ajouter une leçon à un thème spécifique.
      */
     @PostMapping("/{id}/lessons")
-    public ResponseEntity<?> addLessonToTheme(
+    public ResponseEntity<LessonWithThemeDto> addLessonToTheme(
             @PathVariable("id") int themeId, 
             @RequestBody LessonDto lessonDto) {
-        lessonService.addLessonToTheme(themeId, lessonDto);
-        return ResponseEntity.ok().build();
+        LessonWithThemeDto dto =  lessonService.addLessonToTheme(themeId, lessonDto);
+        return ResponseEntity.ok().body(dto);
     }
 }

@@ -28,7 +28,7 @@ L’API utilise une architecture **Controller / Service / DTO**.
 #### Récupérer toutes les leçons (avec pagination)
 
 ```
-GET /api/lessons/
+GET /api/lessons
 ```
 
 **Description :**  

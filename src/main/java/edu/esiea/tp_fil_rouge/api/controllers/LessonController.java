@@ -23,20 +23,10 @@ public class LessonController {
      * POST /api/themes/{id}/lessons
      * Ajouter une leçon à un thème spécifique.
      */
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Page<LessonDto>> getLessons(Pageable pageable) {
 
         Page<LessonDto> lessons = lessonService.getLessonsWithThemePageable(pageable);
         return ResponseEntity.ok(lessons);
     }
-
-//     @GetMapping
-// public ResponseEntity<Page<LessonDto>> getAllLessons(
-//     @RequestParam(defaultValue = "0") int page,
-//     @RequestParam(defaultValue = "10") int size
-// ) {
-//     Pageable pageable = PageRequest.of(page, size);
-//     Page<LessonDto> lessons = lessonService.getAllLessons(pageable);
-//     return ResponseEntity.ok(lessons);
-// }
 }

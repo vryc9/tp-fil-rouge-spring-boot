@@ -5,6 +5,7 @@ import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
 import edu.esiea.tp_fil_rouge.api.mapper.LessonMapper;
 import edu.esiea.tp_fil_rouge.app.interfaces.ILessonService;
 import edu.esiea.tp_fil_rouge.domain.models.Lesson;
+import edu.esiea.tp_fil_rouge.domain.models.Theme;
 import edu.esiea.tp_fil_rouge.infra.ILessonRepository;
 import edu.esiea.tp_fil_rouge.infra.IThemeRepository;
 import jakarta.transaction.Transactional;
@@ -39,10 +40,11 @@ public class LessonService implements ILessonService {
             throw new IllegalArgumentException("Theme id cannot be empty");
         }
 
-        themeRepository.findById((long) idTheme)
+         Theme theme = themeRepository.findById((long) idTheme)
                 .orElseThrow(() -> new IllegalArgumentException("Thème introuvable avec l'id : " + idTheme));
 
         Lesson lesson = lessonMapper.toEntity(lessonDto);
+        lesson.setTheme(theme);
         lesson = lessonRepository.save(lesson);
         return lessonMapper.toDtoWithTheme(lesson);
     }
