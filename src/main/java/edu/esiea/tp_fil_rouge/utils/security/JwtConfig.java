@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 @Configuration
 public class JwtConfig {
 
-    @Value("${jwt.secret}") // Dans application.yml
+    @Value("${jwt.secret}")
     private String secretKey;
 
     @Bean

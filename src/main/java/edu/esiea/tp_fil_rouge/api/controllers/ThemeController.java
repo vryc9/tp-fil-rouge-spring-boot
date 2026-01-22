@@ -1,6 +1,7 @@
 package edu.esiea.tp_fil_rouge.api.controllers;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LessonWithThemeDto;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LessonDto;
@@ -25,6 +26,7 @@ public class ThemeController {
      * Créer un nouveau thème avec un nom unique.
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ThemeDto> createTheme(@RequestBody ThemeDto themeDto) {
         // Logique pour créer un thème
         ThemeDto createdTheme = themeService.createTheme(themeDto);
