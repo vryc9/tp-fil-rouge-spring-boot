@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -81,6 +82,15 @@ public class GlobalExceptionHandler {
         pd.setProperty("errors", errors);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
+    }
+
+    @ExceptionHandler(InsufficientAuthenticationException.class)
+    public ResponseEntity<ProblemDetail> handleInsufficientAuth(InsufficientAuthenticationException ex, HttpServletRequest req) {
+        var pd = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        pd.setTitle("Unauthorized");
+        pd.setDetail(ex.getMessage());
+        pd.setInstance(URI.create(req.getRequestURI()));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pd);
     }
 
     @ExceptionHandler(Exception.class)
