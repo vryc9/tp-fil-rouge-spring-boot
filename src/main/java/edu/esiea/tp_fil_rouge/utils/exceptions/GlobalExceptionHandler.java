@@ -17,7 +17,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "edu.esiea.tp_fil_rouge")
 public class GlobalExceptionHandler {
 
   @ExceptionHandler(NotFoundException.class)
