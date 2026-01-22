@@ -1,6 +1,10 @@
 package edu.esiea.tp_fil_rouge.api.controllers;
 
 import edu.esiea.tp_fil_rouge.api.dtos.LoginRequestDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +34,26 @@ public class AuthController {
     @Autowired
     private JwtEncoder jwtEncoder;
 
+    @Operation(
+            summary = "Authentifie un utilisateur et retourne un token JWT",
+            description = "Cette méthode authentifie l'utilisateur avec son username et password, puis retourne un token JWT à utiliser pour les appels sécurisés.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Authentification réussie, token retourné",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(
+                                            example = "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"}"
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Authentification échouée, username ou password incorrect",
+                            content = @Content
+                    )
+            }
+    )
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         // Authentifie l’utilisateur (avec UserDetailsService)

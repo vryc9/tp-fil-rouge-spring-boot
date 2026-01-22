@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pd);
   }
 
-    @ExceptionHandler(IllegalStateException.class) 
+    @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ProblemDetail> handleConflict(RuntimeException ex, HttpServletRequest req) {
         var pd = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         pd.setTitle("Conflict Detected");
@@ -39,15 +39,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({
-        IllegalArgumentException.class,           
-        HttpMessageNotReadableException.class,    
-        MissingServletRequestParameterException.class, 
-        MethodArgumentTypeMismatchException.class  
+            IllegalArgumentException.class,
+            HttpMessageNotReadableException.class,
+            MissingServletRequestParameterException.class,
+            MethodArgumentTypeMismatchException.class
     })
     public ResponseEntity<ProblemDetail> handleBadRequest(Exception ex, HttpServletRequest req) {
         var pd = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         pd.setTitle("Bad Request");
-        
+
         if (ex instanceof HttpMessageNotReadableException) {
             pd.setDetail("Le corps de la requête (JSON) est mal formé ou illisible.");
         } else if (ex instanceof MissingServletRequestParameterException) {
@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
         } else {
             pd.setDetail(ex.getMessage());
         }
-        
+
         pd.setInstance(URI.create(req.getRequestURI()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pd);
     }
@@ -74,9 +74,9 @@ public class GlobalExceptionHandler {
         var errors = ex.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(
-                    fieldError -> fieldError.getField(), 
-                    fieldError -> fieldError.getDefaultMessage(),
-                    (existing, replacement) -> existing 
+                        fieldError -> fieldError.getField(),
+                        fieldError -> fieldError.getDefaultMessage(),
+                        (existing, replacement) -> existing
                 ));
 
         pd.setProperty("errors", errors);
