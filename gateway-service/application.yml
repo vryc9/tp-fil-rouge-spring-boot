@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Crée automatiquement les routes /service-id/**
+          lower-case-service-id: true
+      routes:
+        # Route explicite pour simplifier les URLs
+        - id: auth-route
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            # Retire "/api/auth" pour que le service reçoive juste "/auth/..." ou garde-le selon ton controller
+            - RewritePath=/api/auth/(?<segment>.*), /auth/$\{segment}
+
+        - id: catalog-route
+          uri: lb://catalog-service
+          predicates:
+            - Path=/api/catalog/**
+          filters:
+            - StripPrefix=1 # Transforme /api/catalog/themes en /themes
+
+        - id: progress-route
+          uri: lb://progress-service
+          predicates:
+            - Path=/api/progress/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
