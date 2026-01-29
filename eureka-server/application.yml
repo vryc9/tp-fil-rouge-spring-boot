@@ -2,8 +2,13 @@ server:
   port: 8761
 
 spring:
+  cloud:
+    config: 
+      enabled: false
   application:
     name: discovery-service
+  config:
+    import: "optional:configserver:"
 
 eureka:
   client:

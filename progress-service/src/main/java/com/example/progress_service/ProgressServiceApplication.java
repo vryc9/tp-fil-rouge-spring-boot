@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@Spr
+@SpringBootApplication
 public class ProgressServiceApplication {
 
 	public static void main(String[] args) {
-		Sprin
+		SpringApplication.run(ProgressServiceApplication.class, args);
+	}
+}
